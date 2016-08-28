@@ -153,7 +153,7 @@ p.nominalBounds = new cjs.Rectangle(-132.4,-179.5,558.8,763);
 p.nominalBounds = new cjs.Rectangle(0,0,151,151);
 
 
-(lib.gameOverView = function(mode,startPosition,loop) {
+(lib.GameOverView = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
 	// YOU WON
@@ -178,7 +178,7 @@ p.nominalBounds = new cjs.Rectangle(0,59,300,218);
 	this.initialize(mode,startPosition,loop,{});
 
 	// gameOver
-	this.instance = new lib.gameOverView();
+	this.instance = new lib.GameOverView();
 	this.instance.setTransform(150,16.8,1,1,0,0,0,150,16.8);
 
 	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));

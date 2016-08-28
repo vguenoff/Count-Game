@@ -15,8 +15,8 @@ h1 {
     font-size: 2em;
     letter-spacing: 1em;
 }
-/*#game-canvas {
+#game-canvas {
     width: 100%;
     box-sizing: border-box;
     border: 5px solid #00cacd;
-}    */
+}    
