@@ -107,7 +107,7 @@ class Game {
 
             // random position
             movieclip.x = parseInt(Math.random() * (this.stage.width - movieclip.getBounds().width));
-            movieclip.y = parseInt(Math.random() * 0.8 * (this.stage.height - movieclip.getBounds().height) + this.stage.height / 8);
+            movieclip.y = parseInt(Math.random() * 0.7 * (this.stage.height - movieclip.getBounds().height) + this.stage.height / 6);
         }
     }
     handleClick(numberedBox) {

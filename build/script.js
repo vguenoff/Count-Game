@@ -50,7 +50,7 @@ var GameData = function () {
     function GameData() {
         _classCallCheck(this, GameData);
 
-        this.amountOfBox = 2;
+        this.amountOfBox = 30;
         this.resetData();
     }
 
@@ -163,7 +163,7 @@ var Game = function () {
 
                 // random position
                 movieclip.x = parseInt(Math.random() * (this.stage.width - movieclip.getBounds().width));
-                movieclip.y = parseInt(Math.random() * 0.8 * (this.stage.height - movieclip.getBounds().height) + this.stage.height / 8);
+                movieclip.y = parseInt(Math.random() * 0.7 * (this.stage.height - movieclip.getBounds().height) + this.stage.height / 6);
             }
         }
     }, {
