@@ -43,7 +43,6 @@ var NumberedBox = function (_createjs$Container) {
 
     return NumberedBox;
 }(createjs.Container);
-
 // this class controlls the game data
 
 
@@ -51,7 +50,7 @@ var GameData = function () {
     function GameData() {
         _classCallCheck(this, GameData);
 
-        this.amountOfBox = 20;
+        this.amountOfBox = 3;
         this.resetData();
     }
 
@@ -114,25 +113,44 @@ var Game = function () {
         createjs.Ticker.on('tick', this.stage);
 
         // furst init
-        this.restartGame();
+        this.startRestartGame(true);
     }
 
     _createClass(Game, [{
         key: 'version',
         value: function version() {
-            return '1.0.0';
+            return '1.0.1';
         }
     }, {
-        key: 'restartGame',
-        value: function restartGame() {
+        key: 'startRestartGame',
+        value: function startRestartGame() {
+            var _this2 = this;
+
+            var first = arguments.length <= 0 || arguments[0] === undefined ? true : arguments[0];
+
             this.gameData.resetData();
             this.stage.removeAllChildren();
 
             // background
-            this.stage.addChild(new lib.Background());
+            // this.stage.addChild(new lib.Background());
 
-            // genrate boxes
-            this.generateMultipleBoxes(this.gameData.amountOfBox);
+            // Start View
+            if (first) {
+                (function () {
+                    var startView = new lib.StartView();
+                    _this2.stage.addChild(startView);
+
+                    startView.y = 55;
+
+                    startView.startBtn.on('click', function () {
+                        // generate boxes
+                        _this2.stage.removeChild(startView);
+                        _this2.generateMultipleBoxes(_this2.gameData.amountOfBox);
+                    }.bind(_this2));
+                })();
+            } else {
+                this.generateMultipleBoxes(this.gameData.amountOfBox);
+            }
         }
     }, {
         key: 'generateMultipleBoxes',
@@ -151,21 +169,26 @@ var Game = function () {
     }, {
         key: 'handleClick',
         value: function handleClick(numberedBox) {
-            var _this2 = this;
+            var _this3 = this;
 
             if (this.gameData.isRightNUmber(numberedBox.number)) {
-                this.stage.removeChild(numberedBox);
-                this.gameData.nextNumber();
 
-                // is game over?
-                if (this.gameData.isGameWin()) {
-                    var gameOverView = new lib.GameOverView();
-                    this.stage.addChild(gameOverView);
+                createjs.Tween.get(numberedBox).to({ x: numberedBox.x + 25, y: numberedBox.y + 25, scaleX: 0, scaleY: 0, visible: false }, 100, createjs.Ease.cubicInOut()).call(function () {
+                    _this3.stage.removeChild(numberedBox);
+                    _this3.gameData.nextNumber();
 
-                    gameOverView.restartBtn.on('click', function () {
-                        return _this2.restartGame();
-                    }.bind(this));
-                }
+                    // is game over?
+                    if (_this3.gameData.isGameWin()) {
+                        var gameOverView = new lib.GameOverView();
+                        _this3.stage.addChild(gameOverView);
+
+                        gameOverView.restartBtn.on('click', function () {
+                            createjs.Tween.get(gameOverView.restartBtn).to({ rotation: 360 }, 500, createjs.Ease.cubicInOut()).call(function () {
+                                _this3.startRestartGame(false);
+                            });
+                        }.bind(_this3));
+                    }
+                });
             }
         }
     }, {
@@ -180,7 +203,7 @@ var Game = function () {
             }
 
             this.canvas.setAttribute('width', Math.round(this.stage.width * ratio));
-            this.canvas.setAttribute('hight', Math.round(this.stage.hight * ratio));
+            this.canvas.setAttribute('height', Math.round(this.stage.height * ratio));
 
             this.stage.scaleX = this.stage.scaleX = ratio;
 
@@ -192,7 +215,6 @@ var Game = function () {
 
     return Game;
 }();
-
 // start the game
 
 

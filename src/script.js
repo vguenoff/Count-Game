@@ -20,11 +20,10 @@ class NumberedBox extends createjs.Container {
         this.game.handleClick(this);
     }
 }
-
 // this class controlls the game data
 class GameData {
     constructor() {
-        this.amountOfBox = 20;
+        this.amountOfBox = 3;
         this.resetData();
     }
     resetData() {
@@ -72,20 +71,34 @@ class Game {
         createjs.Ticker.on('tick', this.stage);
 
         // furst init
-        this.restartGame();
+        this.startRestartGame(true);
     }
     version() {
-        return '1.0.0';
+        return '1.0.1';
     }
-    restartGame() {
+    startRestartGame(first = true) {
         this.gameData.resetData();
         this.stage.removeAllChildren();
 
         // background
-        this.stage.addChild(new lib.Background());
+        // this.stage.addChild(new lib.Background());
 
-        // genrate boxes
-        this.generateMultipleBoxes(this.gameData.amountOfBox);
+        // Start View
+        if(first) {
+            let startView = new lib.StartView();
+            this.stage.addChild(startView);
+            
+            startView.y = 55;
+
+            startView.startBtn.on('click', (() => {
+                // generate boxes
+                this.stage.removeChild(startView);
+                this.generateMultipleBoxes(this.gameData.amountOfBox);   
+            }).bind(this));
+        } else {
+            this.generateMultipleBoxes(this.gameData.amountOfBox);   
+
+        }
     }
     generateMultipleBoxes(amount = 10) {
         for (let i = amount; i ; i--) {
@@ -99,16 +112,27 @@ class Game {
     }
     handleClick(numberedBox) {
         if(this.gameData.isRightNUmber(numberedBox.number)) {
-            this.stage.removeChild(numberedBox);
-            this.gameData.nextNumber();
 
-            // is game over?
-            if(this.gameData.isGameWin()) {
-                var gameOverView = new lib.GameOverView();
-                this.stage.addChild(gameOverView);
+            createjs.Tween.get(numberedBox)
+                .to({x: (numberedBox.x + 25), y: (numberedBox.y + 25), scaleX:0, scaleY:0, visible:false}, 100, createjs.Ease.cubicInOut())
+                .call(() => {
+                    this.stage.removeChild(numberedBox);
+                    this.gameData.nextNumber();
 
-                gameOverView.restartBtn.on('click', (() => this.restartGame()).bind(this));
-            }
+                    // is game over?
+                    if(this.gameData.isGameWin()) {
+                        var gameOverView = new lib.GameOverView();
+                        this.stage.addChild(gameOverView);
+
+                        gameOverView.restartBtn.on('click', (() => {
+                            createjs.Tween.get(gameOverView.restartBtn)
+                                .to({rotation: 360}, 500, createjs.Ease.cubicInOut())
+                                .call(() => {
+                                    this.startRestartGame(false);
+                                });
+                        }).bind(this));
+                    }
+                });
         }
     }
     retinalize() {
@@ -121,7 +145,7 @@ class Game {
         }
 
         this.canvas.setAttribute('width', Math.round(this.stage.width * ratio));
-        this.canvas.setAttribute('hight', Math.round(this.stage.hight * ratio));
+        this.canvas.setAttribute('height', Math.round(this.stage.height * ratio));
 
         this.stage.scaleX = this.stage.scaleX = ratio;
 
@@ -130,6 +154,5 @@ class Game {
         this.canvas.style.height = `${this.stage.height}px`; 
     }
 }
-
 // start the game
 let game = new Game();
