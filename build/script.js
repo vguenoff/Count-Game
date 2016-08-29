@@ -205,7 +205,7 @@ var Game = function () {
             this.canvas.setAttribute('width', Math.round(this.stage.width * ratio));
             this.canvas.setAttribute('height', Math.round(this.stage.height * ratio));
 
-            this.stage.scaleX = this.stage.scaleX = ratio;
+            this.stage.scaleX = this.stage.scaleY = ratio;
 
             // set CSS style 
             this.canvas.style.width = this.stage.width + 'px';
