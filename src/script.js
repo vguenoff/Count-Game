@@ -23,7 +23,7 @@ class NumberedBox extends createjs.Container {
 // this class controlls the game data
 class GameData {
     constructor() {
-        this.amountOfBox = 3;
+        this.amountOfBox = 30;
         this.resetData();
     }
     resetData() {
@@ -48,10 +48,7 @@ class Game {
         this.canvas = document.getElementById('game-canvas');
         this.stage = new createjs.Stage(this.canvas);
 
-        window.debugStage = this.stage; // debugStage.children in the browser   console
-
-        this.stage.width = this.canvas.width;
-        this.stage.height = this.canvas.height;
+        window.debugStage = this.stage; // debugStage.children in the browser console
 
         this.stage.enableMouseOver();
 
@@ -74,7 +71,7 @@ class Game {
         this.startRestartGame(true);
     }
     version() {
-        return '1.0.1';
+        return '2.0.1';
     }
     startRestartGame(first = true) {
         this.gameData.resetData();
@@ -85,11 +82,14 @@ class Game {
 
         // Start View
         if(first) {
-            let startView = new lib.StartView();
+            let startView = new lib.StartView(this);
             this.stage.addChild(startView);
             
-            startView.y = 55;
+            startView.setBounds(0, 0, 300, 33.5);
 
+            startView.x = (this.stage.width - startView.getBounds().width) / 2;
+            startView.y = (this.stage.height - startView.getBounds().height) / 5;
+            
             startView.startBtn.on('click', (() => {
                 // generate boxes
                 this.stage.removeChild(startView);
@@ -106,8 +106,8 @@ class Game {
             this.stage.addChild(movieclip);
 
             // random position
-            movieclip.x = Math.random() * (this.stage.width - movieclip.getBounds().width);
-            movieclip.y = Math.random() * (this.stage.height - movieclip.getBounds().height);
+            movieclip.x = parseInt(Math.random() * (this.stage.width - movieclip.getBounds().width));
+            movieclip.y = parseInt(Math.random() * 0.8 * (this.stage.height - movieclip.getBounds().height) + this.stage.height / 8);
         }
     }
     handleClick(numberedBox) {
@@ -151,7 +151,7 @@ class Game {
 
         // set CSS style 
         this.canvas.style.width = `${this.stage.width}px`; 
-        this.canvas.style.height = `${this.stage.height}px`; 
+        this.canvas.style.height = `${this.stage.height}px` ; 
     }
 }
 // start the game

@@ -50,7 +50,7 @@ var GameData = function () {
     function GameData() {
         _classCallCheck(this, GameData);
 
-        this.amountOfBox = 3;
+        this.amountOfBox = 30;
         this.resetData();
     }
 
@@ -90,10 +90,7 @@ var Game = function () {
         this.canvas = document.getElementById('game-canvas');
         this.stage = new createjs.Stage(this.canvas);
 
-        window.debugStage = this.stage; // debugStage.children in the browser   console
-
-        this.stage.width = this.canvas.width;
-        this.stage.height = this.canvas.height;
+        window.debugStage = this.stage; // debugStage.children in the browser console
 
         this.stage.enableMouseOver();
 
@@ -119,7 +116,7 @@ var Game = function () {
     _createClass(Game, [{
         key: 'version',
         value: function version() {
-            return '1.0.1';
+            return '2.0.1';
         }
     }, {
         key: 'startRestartGame',
@@ -137,10 +134,13 @@ var Game = function () {
             // Start View
             if (first) {
                 (function () {
-                    var startView = new lib.StartView();
+                    var startView = new lib.StartView(_this2);
                     _this2.stage.addChild(startView);
 
-                    startView.y = 55;
+                    startView.setBounds(0, 0, 300, 33.5);
+
+                    startView.x = (_this2.stage.width - startView.getBounds().width) / 2;
+                    startView.y = (_this2.stage.height - startView.getBounds().height) / 5;
 
                     startView.startBtn.on('click', function () {
                         // generate boxes
@@ -162,8 +162,8 @@ var Game = function () {
                 this.stage.addChild(movieclip);
 
                 // random position
-                movieclip.x = Math.random() * (this.stage.width - movieclip.getBounds().width);
-                movieclip.y = Math.random() * (this.stage.height - movieclip.getBounds().height);
+                movieclip.x = parseInt(Math.random() * (this.stage.width - movieclip.getBounds().width));
+                movieclip.y = parseInt(Math.random() * 0.8 * (this.stage.height - movieclip.getBounds().height) + this.stage.height / 8);
             }
         }
     }, {
