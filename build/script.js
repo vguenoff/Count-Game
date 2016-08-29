@@ -50,7 +50,7 @@ var GameData = function () {
     function GameData() {
         _classCallCheck(this, GameData);
 
-        this.amountOfBox = 30;
+        this.amountOfBox = 2;
         this.resetData();
     }
 
@@ -140,7 +140,7 @@ var Game = function () {
                     startView.setBounds(0, 0, 300, 33.5);
 
                     startView.x = (_this2.stage.width - startView.getBounds().width) / 2;
-                    startView.y = (_this2.stage.height - startView.getBounds().height) / 5;
+                    startView.y = (_this2.stage.height - startView.getBounds().height) / 4;
 
                     startView.startBtn.on('click', function () {
                         // generate boxes
@@ -163,7 +163,7 @@ var Game = function () {
 
                 // random position
                 movieclip.x = parseInt(Math.random() * (this.stage.width - movieclip.getBounds().width));
-                movieclip.y = parseInt(Math.random() * 0.7 * (this.stage.height - movieclip.getBounds().height) + this.stage.height / 6);
+                movieclip.y = parseInt(Math.random() * 0.7 * (this.stage.height - movieclip.getBounds().height) + this.stage.height / 5);
             }
         }
     }, {
@@ -185,7 +185,7 @@ var Game = function () {
                         gameOverView.setBounds(0, 0, 300, 245.65);
 
                         gameOverView.x = (_this3.stage.width - gameOverView.getBounds().width) / 2;
-                        gameOverView.y = (_this3.stage.height - gameOverView.getBounds().height) / 5;
+                        gameOverView.y = (_this3.stage.height - gameOverView.getBounds().height) / 4;
 
                         gameOverView.restartBtn.on('click', function () {
                             createjs.Tween.get(gameOverView.restartBtn).to({ rotation: 360 }, 500, createjs.Ease.cubicInOut()).call(function () {

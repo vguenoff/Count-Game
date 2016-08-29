@@ -23,7 +23,7 @@ class NumberedBox extends createjs.Container {
 // this class controlls the game data
 class GameData {
     constructor() {
-        this.amountOfBox = 30;
+        this.amountOfBox = 2;
         this.resetData();
     }
     resetData() {
@@ -88,7 +88,7 @@ class Game {
             startView.setBounds(0, 0, 300, 33.5);
 
             startView.x = (this.stage.width - startView.getBounds().width) / 2;
-            startView.y = (this.stage.height - startView.getBounds().height) / 5;
+            startView.y = (this.stage.height - startView.getBounds().height) / 4;
             
             startView.startBtn.on('click', (() => {
                 // generate boxes
@@ -107,7 +107,7 @@ class Game {
 
             // random position
             movieclip.x = parseInt(Math.random() * (this.stage.width - movieclip.getBounds().width));
-            movieclip.y = parseInt(Math.random() * 0.7 * (this.stage.height - movieclip.getBounds().height) + this.stage.height / 6);
+            movieclip.y = parseInt(Math.random() * 0.7 * (this.stage.height - movieclip.getBounds().height) + this.stage.height / 5);
         }
     }
     handleClick(numberedBox) {
@@ -127,7 +127,7 @@ class Game {
                         gameOverView.setBounds(0, 0, 300, 245.65);
 
                         gameOverView.x = (this.stage.width - gameOverView.getBounds().width) / 2;
-                        gameOverView.y = (this.stage.height - gameOverView.getBounds().height) / 5;
+                        gameOverView.y = (this.stage.height - gameOverView.getBounds().height) / 4;
 
                         gameOverView.restartBtn.on('click', (() => {
                             createjs.Tween.get(gameOverView.restartBtn)
