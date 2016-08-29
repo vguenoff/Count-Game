@@ -23,7 +23,7 @@ class NumberedBox extends createjs.Container {
 // this class controlls the game data
 class GameData {
     constructor() {
-        this.amountOfBox = 2;
+        this.amountOfBox = 3;
         this.resetData();
     }
     resetData() {

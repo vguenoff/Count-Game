@@ -50,7 +50,7 @@ var GameData = function () {
     function GameData() {
         _classCallCheck(this, GameData);
 
-        this.amountOfBox = 2;
+        this.amountOfBox = 3;
         this.resetData();
     }
 
