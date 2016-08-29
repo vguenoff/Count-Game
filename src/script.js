@@ -23,7 +23,7 @@ class NumberedBox extends createjs.Container {
 // this class controlls the game data
 class GameData {
     constructor() {
-        this.amountOfBox = 30;
+        this.amountOfBox = 2;
         this.resetData();
     }
     resetData() {
@@ -123,6 +123,11 @@ class Game {
                     if(this.gameData.isGameWin()) {
                         var gameOverView = new lib.GameOverView();
                         this.stage.addChild(gameOverView);
+
+                        gameOverView.setBounds(0, 0, 300, 245.65);
+
+                        gameOverView.x = (this.stage.width - gameOverView.getBounds().width) / 2;
+                        gameOverView.y = (this.stage.height - gameOverView.getBounds().height) / 5;
 
                         gameOverView.restartBtn.on('click', (() => {
                             createjs.Tween.get(gameOverView.restartBtn)

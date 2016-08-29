@@ -50,7 +50,7 @@ var GameData = function () {
     function GameData() {
         _classCallCheck(this, GameData);
 
-        this.amountOfBox = 30;
+        this.amountOfBox = 2;
         this.resetData();
     }
 
@@ -181,6 +181,11 @@ var Game = function () {
                     if (_this3.gameData.isGameWin()) {
                         var gameOverView = new lib.GameOverView();
                         _this3.stage.addChild(gameOverView);
+
+                        gameOverView.setBounds(0, 0, 300, 245.65);
+
+                        gameOverView.x = (_this3.stage.width - gameOverView.getBounds().width) / 2;
+                        gameOverView.y = (_this3.stage.height - gameOverView.getBounds().height) / 5;
 
                         gameOverView.restartBtn.on('click', function () {
                             createjs.Tween.get(gameOverView.restartBtn).to({ rotation: 360 }, 500, createjs.Ease.cubicInOut()).call(function () {
