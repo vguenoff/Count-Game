@@ -23,7 +23,7 @@ class NumberedBox extends createjs.Container {
 // this class controlls the game data
 class GameData {
     constructor() {
-        this.amountOfBox = 3;
+        this.amountOfBox = 15;
         this.resetData();
     }
     resetData() {
@@ -71,7 +71,7 @@ class Game {
         this.startRestartGame(true);
     }
     version() {
-        return '2.0.1';
+        return '2.1.0';
     }
     startRestartGame(first = true) {
         this.gameData.resetData();

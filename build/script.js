@@ -50,7 +50,7 @@ var GameData = function () {
     function GameData() {
         _classCallCheck(this, GameData);
 
-        this.amountOfBox = 3;
+        this.amountOfBox = 15;
         this.resetData();
     }
 
@@ -116,7 +116,7 @@ var Game = function () {
     _createClass(Game, [{
         key: 'version',
         value: function version() {
-            return '2.0.1';
+            return '2.1.0';
         }
     }, {
         key: 'startRestartGame',

@@ -259,12 +259,6 @@ p.nominalBounds = new cjs.Rectangle(0,59,300,245.7);
 
 	this.timeline.addTween(cjs.Tween.get(this.instance_2).wait(1));
 
-	// background
-	this.instance_3 = new lib.Background();
-	this.instance_3.setTransform(150,200,1,1,0,0,0,150,200);
-
-	this.timeline.addTween(cjs.Tween.get(this.instance_3).wait(1));
-
 }).prototype = p = new cjs.MovieClip();
 p.nominalBounds = new cjs.Rectangle(17.6,20.5,558.8,763);
 
