@@ -43,6 +43,19 @@ var NumberedBox = function (_createjs$Container) {
 
     return NumberedBox;
 }(createjs.Container);
+// class HeadView extends createjs.Container {
+//     constructor(boxCount = 30, boxSeconds = 30) {
+//         super();
+
+//         this.boxCount = boxCount;
+//         this.boxSeconds = boxSeconds;
+
+
+//         this.setBounds(0, 0, 160, 88);
+
+//     }
+// }
+
 // this class controlls the game data
 
 
@@ -116,7 +129,7 @@ var Game = function () {
     _createClass(Game, [{
         key: 'version',
         value: function version() {
-            return '2.1.1';
+            return '3.0.0';
         }
     }, {
         key: 'startRestartGame',
@@ -131,6 +144,15 @@ var Game = function () {
             // background
             // this.stage.addChild(new lib.Background());
 
+            // head view
+            var headView = new lib.HeadView();
+
+            headView.setBounds(0, 0, 158, 88);
+            headView.x = (this.stage.width - headView.getBounds().width) / 2;
+            headView.y = 15;
+            headView.counter.visible = false;
+            this.stage.addChild(headView);
+
             // Start View
             if (first) {
                 (function () {
@@ -140,7 +162,7 @@ var Game = function () {
                     startView.setBounds(0, 0, 300, 33.5);
 
                     startView.x = (_this2.stage.width - startView.getBounds().width) / 2;
-                    startView.y = (_this2.stage.height - startView.getBounds().height) / 4;
+                    startView.y = (_this2.stage.height - startView.getBounds().height) / 4 + 25;
 
                     startView.startBtn.on('click', function () {
                         // generate boxes
@@ -163,7 +185,7 @@ var Game = function () {
 
                 // random position
                 movieclip.x = parseInt(Math.random() * (this.stage.width - movieclip.getBounds().width));
-                movieclip.y = parseInt(Math.random() * 0.7 * (this.stage.height - movieclip.getBounds().height) + this.stage.height / 5);
+                movieclip.y = parseInt(Math.random() * 0.7 * (this.stage.height - movieclip.getBounds().height) + this.stage.height / 5) + 25;
             }
         }
     }, {
@@ -185,7 +207,7 @@ var Game = function () {
                         gameOverView.setBounds(0, 0, 300, 245.65);
 
                         gameOverView.x = (_this3.stage.width - gameOverView.getBounds().width) / 2;
-                        gameOverView.y = (_this3.stage.height - gameOverView.getBounds().height) / 4;
+                        gameOverView.y = (_this3.stage.height - gameOverView.getBounds().height) / 4 + 25;
 
                         gameOverView.restartBtn.on('click', function () {
                             createjs.Tween.get(gameOverView.restartBtn).to({ rotation: 360 }, 500, createjs.Ease.cubicInOut()).call(function () {
@@ -200,7 +222,7 @@ var Game = function () {
         key: 'retinalize',
         value: function retinalize() {
             this.stage.width = this.canvas.width;
-            this.stage.height = this.canvas.height;
+            this.stage.height = this.canvas.height + 25;
 
             var ratio = window.devicePixelRatio;
             if (ratio === undefined) {
@@ -208,7 +230,7 @@ var Game = function () {
             }
 
             this.canvas.setAttribute('width', Math.round(this.stage.width * ratio));
-            this.canvas.setAttribute('height', Math.round(this.stage.height * ratio));
+            this.canvas.setAttribute('height', Math.round(this.stage.height * ratio) + 25);
 
             this.stage.scaleX = this.stage.scaleY = ratio;
 

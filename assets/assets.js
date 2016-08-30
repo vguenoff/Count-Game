@@ -167,26 +167,35 @@ p.nominalBounds = new cjs.Rectangle(0,0,157.2,88.4);
 
 	this.timeline.addTween(cjs.Tween.get(this.text).wait(1));
 
-	// in
-	this.text_1 = new cjs.Text("30", "27px 'Courier'");
-	this.text_1.textAlign = "center";
-	this.text_1.lineHeight = 32;
-	this.text_1.lineWidth = 60;
-	this.text_1.setTransform(29.8,0);
+	// Layer 6
+	this.shape = new cjs.Shape();
+	this.shape.graphics.f("#000000").s().p("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");
+	this.shape.setTransform(78.6,62.1);
 
-	this.timeline.addTween(cjs.Tween.get(this.text_1).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
+
+	// in
+	this.boxCount = new cjs.Text("30", "27px 'Courier'");
+	this.boxCount.name = "boxCount";
+	this.boxCount.textAlign = "center";
+	this.boxCount.lineHeight = 32;
+	this.boxCount.lineWidth = 60;
+	this.boxCount.setTransform(29.8,0);
+
+	this.timeline.addTween(cjs.Tween.get(this.boxCount).wait(1));
 
 	// 30
-	this.text_2 = new cjs.Text("30", "27px 'Courier'");
-	this.text_2.textAlign = "center";
-	this.text_2.lineHeight = 32;
-	this.text_2.lineWidth = 60;
-	this.text_2.setTransform(126.9,0);
+	this.boxSeconds = new cjs.Text("30", "27px 'Courier'");
+	this.boxSeconds.name = "boxSeconds";
+	this.boxSeconds.textAlign = "center";
+	this.boxSeconds.lineHeight = 32;
+	this.boxSeconds.lineWidth = 60;
+	this.boxSeconds.setTransform(126.9,0);
 
-	this.timeline.addTween(cjs.Tween.get(this.text_2).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.boxSeconds).wait(1));
 
 }).prototype = p = new cjs.MovieClip();
-p.nominalBounds = new cjs.Rectangle(0,0,160.7,34.4);
+p.nominalBounds = new cjs.Rectangle(0,0,160.7,88.4);
 
 
 (lib.Background = function(mode,startPosition,loop) {
@@ -265,20 +274,20 @@ p.nominalBounds = new cjs.Rectangle(0,0,151.1,151);
 p.nominalBounds = new cjs.Rectangle(-27.6,-27.6,206.3,206.3);
 
 
-(lib.headCount = function(mode,startPosition,loop) {
+(lib.HeadView = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
-	// count
-	this.instance = new lib.counter();
-	this.instance.setTransform(150,24.9,1,1,0,0,0,150,24.9);
+	// counter
+	this.counter = new lib.counter();
+	this.counter.setTransform(150,24.9,1,1,0,0,0,150,24.9);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.counter).wait(1));
 
 	// head
-	this.instance_1 = new lib.head();
-	this.instance_1.setTransform(78.5,44.1,1,1,0,0,0,78.5,44.1);
+	this.head = new lib.head();
+	this.head.setTransform(78.5,44.1,1,1,0,0,0,78.5,44.1);
 
-	this.timeline.addTween(cjs.Tween.get(this.instance_1).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.head).wait(1));
 
 }).prototype = p = new cjs.MovieClip();
 p.nominalBounds = new cjs.Rectangle(0,0,160.7,88.4);
@@ -308,8 +317,8 @@ p.nominalBounds = new cjs.Rectangle(0,59,300,245.7);
 (lib.assets = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
-	// title
-	this.instance = new lib.headCount();
+	// HeadView
+	this.instance = new lib.HeadView();
 	this.instance.setTransform(86,54.5,1,1,0,0,0,86,54.5);
 
 	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));

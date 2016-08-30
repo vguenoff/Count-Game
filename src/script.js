@@ -20,6 +20,19 @@ class NumberedBox extends createjs.Container {
         this.game.handleClick(this);
     }
 }
+// class HeadView extends createjs.Container {
+//     constructor(boxCount = 30, boxSeconds = 30) {
+//         super();
+
+//         this.boxCount = boxCount;
+//         this.boxSeconds = boxSeconds;
+
+
+//         this.setBounds(0, 0, 160, 88);
+ 
+//     }
+// }
+
 // this class controlls the game data
 class GameData {
     constructor() {
@@ -71,7 +84,7 @@ class Game {
         this.startRestartGame(true);
     }
     version() {
-        return '2.1.1';
+        return '3.0.0';
     }
     startRestartGame(first = true) {
         this.gameData.resetData();
@@ -79,6 +92,15 @@ class Game {
 
         // background
         // this.stage.addChild(new lib.Background());
+
+        // head view
+        let headView = new lib.HeadView();
+        
+        headView.setBounds(0, 0, 158, 88);
+        headView.x = (this.stage.width - headView.getBounds().width) / 2;
+        headView.y = 15;
+        headView.counter.visible = false;
+        this.stage.addChild(headView);
 
         // Start View
         if(first) {
@@ -88,7 +110,7 @@ class Game {
             startView.setBounds(0, 0, 300, 33.5);
 
             startView.x = (this.stage.width - startView.getBounds().width) / 2;
-            startView.y = (this.stage.height - startView.getBounds().height) / 4;
+            startView.y = (this.stage.height - startView.getBounds().height) / 4 + 25;
             
             startView.startBtn.on('click', (() => {
                 // generate boxes
@@ -107,7 +129,7 @@ class Game {
 
             // random position
             movieclip.x = parseInt(Math.random() * (this.stage.width - movieclip.getBounds().width));
-            movieclip.y = parseInt(Math.random() * 0.7 * (this.stage.height - movieclip.getBounds().height) + this.stage.height / 5);
+            movieclip.y = parseInt(Math.random() * 0.7 * (this.stage.height - movieclip.getBounds().height) + this.stage.height / 5) + 25;
         }
     }
     handleClick(numberedBox) {
@@ -127,7 +149,7 @@ class Game {
                         gameOverView.setBounds(0, 0, 300, 245.65);
 
                         gameOverView.x = (this.stage.width - gameOverView.getBounds().width) / 2;
-                        gameOverView.y = (this.stage.height - gameOverView.getBounds().height) / 4;
+                        gameOverView.y = (this.stage.height - gameOverView.getBounds().height) / 4 + 25;
 
                         gameOverView.restartBtn.on('click', (() => {
                             createjs.Tween.get(gameOverView.restartBtn)
@@ -142,7 +164,7 @@ class Game {
     }
     retinalize() {
         this.stage.width = this.canvas.width;
-        this.stage.height = this.canvas.height;
+        this.stage.height = this.canvas.height + 25;
 
         let ratio = window.devicePixelRatio;
         if(ratio === undefined) {
@@ -150,7 +172,7 @@ class Game {
         }
 
         this.canvas.setAttribute('width', Math.round(this.stage.width * ratio));
-        this.canvas.setAttribute('height', Math.round(this.stage.height * ratio));
+        this.canvas.setAttribute('height', Math.round(this.stage.height * ratio) + 25);
 
         this.stage.scaleX = this.stage.scaleY = ratio;
 
