@@ -118,8 +118,8 @@ p.nominalBounds = new cjs.Rectangle(0,0,300,33.5);
 	this.numberText.name = "numberText";
 	this.numberText.textAlign = "center";
 	this.numberText.lineHeight = 32;
-	this.numberText.lineWidth = 49;
-	this.numberText.setTransform(24.7,11.3);
+	this.numberText.lineWidth = 47;
+	this.numberText.setTransform(24.3,36);
 
 	this.timeline.addTween(cjs.Tween.get(this.numberText).wait(1));
 
@@ -138,7 +138,7 @@ p.nominalBounds = new cjs.Rectangle(0,0,300,33.5);
 	this.timeline.addTween(cjs.Tween.get(this.shape_1).wait(1));
 
 }).prototype = p = new cjs.MovieClip();
-p.nominalBounds = new cjs.Rectangle(-1,-1,54.2,52.3);
+p.nominalBounds = new cjs.Rectangle(-1,-1,52.6,87.3);
 
 
 (lib.head = function(mode,startPosition,loop) {
@@ -155,7 +155,7 @@ p.nominalBounds = new cjs.Rectangle(-1,-1,54.2,52.3);
 p.nominalBounds = new cjs.Rectangle(0,0,157.2,88.4);
 
 
-(lib.counter = function(mode,startPosition,loop) {
+(lib.Counter = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
 	// 30
@@ -175,7 +175,7 @@ p.nominalBounds = new cjs.Rectangle(0,0,157.2,88.4);
 	this.timeline.addTween(cjs.Tween.get(this.shape).wait(1));
 
 	// in
-	this.boxCount = new cjs.Text("30", "27px 'Courier'");
+	this.boxCount = new cjs.Text("", "27px 'Courier'");
 	this.boxCount.name = "boxCount";
 	this.boxCount.textAlign = "center";
 	this.boxCount.lineHeight = 32;
@@ -185,7 +185,7 @@ p.nominalBounds = new cjs.Rectangle(0,0,157.2,88.4);
 	this.timeline.addTween(cjs.Tween.get(this.boxCount).wait(1));
 
 	// 30
-	this.boxSeconds = new cjs.Text("30", "27px 'Courier'");
+	this.boxSeconds = new cjs.Text("", "27px 'Courier'");
 	this.boxSeconds.name = "boxSeconds";
 	this.boxSeconds.textAlign = "center";
 	this.boxSeconds.lineHeight = 32;
@@ -277,12 +277,6 @@ p.nominalBounds = new cjs.Rectangle(-27.6,-27.6,206.3,206.3);
 (lib.HeadView = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
-	// counter
-	this.counter = new lib.counter();
-	this.counter.setTransform(150,24.9,1,1,0,0,0,150,24.9);
-
-	this.timeline.addTween(cjs.Tween.get(this.counter).wait(1));
-
 	// head
 	this.head = new lib.head();
 	this.head.setTransform(78.5,44.1,1,1,0,0,0,78.5,44.1);
@@ -290,32 +284,51 @@ p.nominalBounds = new cjs.Rectangle(-27.6,-27.6,206.3,206.3);
 	this.timeline.addTween(cjs.Tween.get(this.head).wait(1));
 
 }).prototype = p = new cjs.MovieClip();
-p.nominalBounds = new cjs.Rectangle(0,0,160.7,88.4);
+p.nominalBounds = new cjs.Rectangle(0,0,157.2,88.4);
 
 
 (lib.GameOverView = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
 
+	// timeline functions:
+	this.frame_20 = function() {
+		this.stop();
+	}
+
+	// actions tween:
+	this.timeline.addTween(cjs.Tween.get(this).wait(20).call(this.frame_20).wait(1));
+
 	// YOU WON
 	this.instance = new lib.youWon();
 	this.instance.setTransform(150,76.2,1,1,0,0,0,150,17.2);
+	this.instance.alpha = 0.012;
 
-	this.timeline.addTween(cjs.Tween.get(this.instance).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.instance).to({alpha:1},13).wait(8));
 
 	// restartBtn
 	this.restartBtn = new lib.RestartBtn();
 	this.restartBtn.setTransform(150.5,201.5,1,1,0,0,0,75.5,75.5);
+	this.restartBtn.alpha = 0.012;
 	new cjs.ButtonHelper(this.restartBtn, 0, 1, 1);
 
-	this.timeline.addTween(cjs.Tween.get(this.restartBtn).wait(1));
+	this.timeline.addTween(cjs.Tween.get(this.restartBtn).to({alpha:1},20,cjs.Ease.get(-1)).wait(1));
 
 }).prototype = p = new cjs.MovieClip();
 p.nominalBounds = new cjs.Rectangle(0,59,300,245.7);
 
 
 // stage content:
+
+
+
 (lib.assets = function(mode,startPosition,loop) {
 	this.initialize(mode,startPosition,loop,{});
+
+	// Counter
+	this.Counter = new lib.Counter();
+	this.Counter.setTransform(150,24.9,1,1,0,0,0,150,24.9);
+
+	this.timeline.addTween(cjs.Tween.get(this.Counter).wait(1));
 
 	// HeadView
 	this.instance = new lib.HeadView();

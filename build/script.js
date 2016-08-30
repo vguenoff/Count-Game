@@ -10,6 +10,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 /* global lib createjs */
 // logic for the Count game
+
 var NumberedBox = function (_createjs$Container) {
     _inherits(NumberedBox, _createjs$Container);
 
@@ -25,6 +26,9 @@ var NumberedBox = function (_createjs$Container) {
 
         var movieclip = new lib.NumberedBox();
         movieclip.numberText.text = number;
+        movieclip.numberText.textBaseline = 'alphabet';
+
+        movieclip.numberText.font = '32px Roboto Mono';
         _this.addChild(movieclip);
 
         _this.setBounds(0, 0, 50, 50);
@@ -43,15 +47,20 @@ var NumberedBox = function (_createjs$Container) {
 
     return NumberedBox;
 }(createjs.Container);
-// class HeadView extends createjs.Container {
+// class Counter extends createjs.Container {
 //     constructor(boxCount = 30, boxSeconds = 30) {
 //         super();
 
 //         this.boxCount = boxCount;
 //         this.boxSeconds = boxSeconds;
 
+//         let leftMC = new lib.Counter();
+//         leftMC.boxCount.text = boxCount;
+//         this.addChild(leftMC);
 
-//         this.setBounds(0, 0, 160, 88);
+//         let rightMC = new lib.Counter();
+//         rightMC.boxSeconds.text = boxSeconds;
+//         this.addChild(rightMC);
 
 //     }
 // }
@@ -100,6 +109,8 @@ var Game = function () {
         // 
         console.log('Welkome to the game. Version ' + this.version());
 
+        this.loadSound();
+
         this.canvas = document.getElementById('game-canvas');
         this.stage = new createjs.Stage(this.canvas);
 
@@ -129,7 +140,12 @@ var Game = function () {
     _createClass(Game, [{
         key: 'version',
         value: function version() {
-            return '3.0.0';
+            return '3.0.1';
+        }
+    }, {
+        key: 'loadSound',
+        value: function loadSound() {
+            createjs.Sound.registerSound('../soundfx/coin.wav', 'tapp');
         }
     }, {
         key: 'startRestartGame',
@@ -150,7 +166,6 @@ var Game = function () {
             headView.setBounds(0, 0, 158, 88);
             headView.x = (this.stage.width - headView.getBounds().width) / 2;
             headView.y = 15;
-            headView.counter.visible = false;
             this.stage.addChild(headView);
 
             // Start View
@@ -168,6 +183,16 @@ var Game = function () {
                         // generate boxes
                         _this2.stage.removeChild(startView);
                         _this2.generateMultipleBoxes(_this2.gameData.amountOfBox);
+
+                        // TODO: Counting
+                        // show Counter
+                        // this.stage.removeChild(headView);
+
+                        // let level = new Counter(15, 16);
+                        // level.setBounds(0, 0, 158, 88);
+                        // level.x = (this.stage.width - level.getBounds().width) / 2;
+                        // level.y = 15;
+                        // this.stage.addChild(level);
                     }.bind(_this2));
                 })();
             } else {
@@ -194,9 +219,10 @@ var Game = function () {
             var _this3 = this;
 
             if (this.gameData.isRightNUmber(numberedBox.number)) {
+                createjs.Sound.play('tapp');
                 this.gameData.nextNumber();
 
-                createjs.Tween.get(numberedBox).to({ x: numberedBox.x + 25, y: numberedBox.y + 25, scaleX: 0, scaleY: 0, visible: false }, 100, createjs.Ease.cubicInOut()).call(function () {
+                createjs.Tween.get(numberedBox).to({ x: numberedBox.x + 25, y: numberedBox.y + 25, scaleX: 0, scaleY: 0, rotation: 30, visible: false }, 100, createjs.Ease.cubicInOut()).call(function () {
                     _this3.stage.removeChild(numberedBox);
 
                     // is game over?
