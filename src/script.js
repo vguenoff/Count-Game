@@ -71,7 +71,7 @@ class Game {
         this.startRestartGame(true);
     }
     version() {
-        return '2.1.0';
+        return '2.1.1';
     }
     startRestartGame(first = true) {
         this.gameData.resetData();
@@ -112,12 +112,12 @@ class Game {
     }
     handleClick(numberedBox) {
         if(this.gameData.isRightNUmber(numberedBox.number)) {
+            this.gameData.nextNumber();
 
             createjs.Tween.get(numberedBox)
                 .to({x: (numberedBox.x + 25), y: (numberedBox.y + 25), scaleX:0, scaleY:0, visible:false}, 100, createjs.Ease.cubicInOut())
                 .call(() => {
                     this.stage.removeChild(numberedBox);
-                    this.gameData.nextNumber();
 
                     // is game over?
                     if(this.gameData.isGameWin()) {

@@ -116,7 +116,7 @@ var Game = function () {
     _createClass(Game, [{
         key: 'version',
         value: function version() {
-            return '2.1.0';
+            return '2.1.1';
         }
     }, {
         key: 'startRestartGame',
@@ -172,10 +172,10 @@ var Game = function () {
             var _this3 = this;
 
             if (this.gameData.isRightNUmber(numberedBox.number)) {
+                this.gameData.nextNumber();
 
                 createjs.Tween.get(numberedBox).to({ x: numberedBox.x + 25, y: numberedBox.y + 25, scaleX: 0, scaleY: 0, visible: false }, 100, createjs.Ease.cubicInOut()).call(function () {
                     _this3.stage.removeChild(numberedBox);
-                    _this3.gameData.nextNumber();
 
                     // is game over?
                     if (_this3.gameData.isGameWin()) {
